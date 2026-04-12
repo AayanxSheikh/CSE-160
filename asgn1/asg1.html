@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Assignment 1: Painting</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; background: #f0f0f0; }
+    canvas { display: block; border: 1px solid #999; margin-bottom: 10px; cursor: crosshair; }
+    .controls { max-width: 400px; }
+    .row { margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+    button { padding: 5px 12px; cursor: pointer; }
+    button.active { background: #4a90d9; color: white; }
+    label { font-size: 13px; min-width: 50px; }
+    input[type="range"] { flex: 1; }
+    h3 { margin: 12px 0 6px; font-size: 14px; }
+    .note { font-size: 12px; color: #666; margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <h2>Assignment 1: Paint Program</h2>
+  <p style="font-size:13px; color:#555;">CSE 160, Spring 2026 | Aayan Sheik</p>
+
+  <canvas id="webgl" width="400" height="400">
+    Your browser does not support canvas.
+  </canvas>
+
+  <div class="controls">
+    <div class="row">
+      <button id="btnClear" onclick="clearCanvas()">Clear Canvas</button>
+      <button id="btnUndo" onclick="undoShape()">Undo</button>
+    </div>
+
+    <h3>Drawing Mode:</h3>
+    <div class="row">
+      <button id="btnSquare" class="active" onclick="setMode('square')">Squares</button>
+      <button id="btnTriangle" onclick="setMode('triangle')">Triangles</button>
+      <button id="btnCircle" onclick="setMode('circle')">Circles</button>
+    </div>
+
+    <h3>Shape Color:</h3>
+    <div class="row">
+      <label>Red</label>
+      <input type="range" id="sliderR" min="0" max="1" step="0.01" value="1">
+      <span id="valR">1.00</span>
+    </div>
+    <div class="row">
+      <label>Green</label>
+      <input type="range" id="sliderG" min="0" max="1" step="0.01" value="0">
+      <span id="valG">0.00</span>
+    </div>
+    <div class="row">
+      <label>Blue</label>
+      <input type="range" id="sliderB" min="0" max="1" step="0.01" value="0">
+      <span id="valB">0.00</span>
+    </div>
+    <div class="row">
+      <label>Alpha</label>
+      <input type="range" id="sliderA" min="0" max="1" step="0.01" value="1">
+      <span id="valA">1.00</span>
+    </div>
+
+    <h3>Shape Size:</h3>
+    <div class="row">
+      <input type="range" id="sliderSize" min="1" max="40" step="1" value="10">
+      <span id="valSize">10</span>
+    </div>
+
+    <h3>(Circles) Segment Count:</h3>
+    <div class="row">
+      <input type="range" id="sliderSeg" min="3" max="100" step="1" value="20">
+      <span id="valSeg">20</span>
+    </div>
+
+    <h3>Special:</h3>
+    <div class="row">
+      <button onclick="drawPicture()">Draw My Picture (AS)</button>
+      <button id="btnRainbow" onclick="toggleRainbow()">Rainbow Mode</button>
+    </div>
+
+    <p class="note">
+      <b>Awesomeness:</b> Rainbow brush mode cycles through hues as you paint.
+      Alpha slider lets you paint with transparency (uses blending).
+      Undo button removes the last shape drawn.
+    </p>
+  </div>
+
+  <!-- Vertex Shader -->
+  <script id="vertex-shader" type="x-shader/x-vertex">
+    attribute vec4 a_Position;
+    uniform float u_PointSize;
+    void main() {
+      gl_Position = a_Position;
+      gl_PointSize = u_PointSize;
+    }
+  </script>
+
+  <!-- Fragment Shader -->
+  <script id="fragment-shader" type="x-shader/x-fragment">
+    precision mediump float;
+    uniform vec4 u_FragColor;
+    void main() {
+      gl_FragColor = u_FragColor;
+    }
+  </script>
+
+  <script src="Point.js"></script>
+  <script src="Triangle.js"></script>
+  <script src="Circle.js"></script>
+  <script src="asg1.js"></script>
+</body>
+</html>

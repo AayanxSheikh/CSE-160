@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Assignment 2: Blocky Tiger</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 12px; background: #1a1a2e; color: #e0e0e0; display: flex; gap: 16px; }
+    canvas { border: 1px solid #444; display: block; cursor: grab; }
+    canvas:active { cursor: grabbing; }
+    .panel { width: 260px; }
+    h2 { margin: 0 0 4px; color: #fff; font-size: 16px; }
+    .sub { font-size: 11px; color: #666; margin-bottom: 10px; }
+    h4 { margin: 10px 0 4px; font-size: 12px; color: #aaa; text-transform: uppercase; letter-spacing: 1px; }
+    .row { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
+    label { font-size: 11px; min-width: 70px; color: #999; }
+    input[type="range"] { flex: 1; }
+    span.val { font-size: 11px; min-width: 30px; color: #fff; }
+    button { padding: 4px 10px; cursor: pointer; font-size: 11px; margin-right: 4px; margin-bottom: 4px; }
+    button.active { background: #e85d04; color: #fff; border: none; }
+    .perf { font-size: 11px; color: #80ffdb; margin-top: 8px; font-family: monospace; }
+    .note { font-size: 10px; color: #555; margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <div>
+    <canvas id="webgl" width="400" height="400"></canvas>
+    <div class="perf" id="perf">FPS: --</div>
+  </div>
+
+  <div class="panel">
+    <h2>Blocky Tiger</h2>
+    <div class="sub">CSE 160 | Aayan Sheikh</div>
+
+    <h4>Camera</h4>
+    <div class="row"><label>Global Angle</label><input type="range" id="sGlobal" min="-180" max="180" value="0"><span class="val" id="vGlobal">0</span></div>
+
+    <h4>Animation</h4>
+    <div class="row">
+      <button id="btnAnim" onclick="toggleAnimation()">Animation: OFF</button>
+      <button onclick="togglePoke()">Poke (or Shift+Click)</button>
+    </div>
+
+    <h4>Head</h4>
+    <div class="row"><label>Head Nod</label><input type="range" id="sHead" min="-40" max="40" value="0"><span class="val" id="vHead">0</span></div>
+    <div class="row"><label>Jaw</label><input type="range" id="sJaw" min="0" max="30" value="0"><span class="val" id="vJaw">0</span></div>
+
+    <h4>Tail</h4>
+    <div class="row"><label>Tail Base</label><input type="range" id="sTail1" min="-45" max="45" value="0"><span class="val" id="vTail1">0</span></div>
+    <div class="row"><label>Tail Tip</label><input type="range" id="sTail2" min="-60" max="60" value="0"><span class="val" id="vTail2">0</span></div>
+
+    <h4>Front Left Leg</h4>
+    <div class="row"><label>Upper</label><input type="range" id="sFL1" min="-60" max="60" value="0"><span class="val" id="vFL1">0</span></div>
+    <div class="row"><label>Lower</label><input type="range" id="sFL2" min="-60" max="60" value="0"><span class="val" id="vFL2">0</span></div>
+    <div class="row"><label>Paw</label><input type="range" id="sFL3" min="-30" max="30" value="0"><span class="val" id="vFL3">0</span></div>
+
+    <h4>Front Right Leg</h4>
+    <div class="row"><label>Upper</label><input type="range" id="sFR1" min="-60" max="60" value="0"><span class="val" id="vFR1">0</span></div>
+    <div class="row"><label>Lower</label><input type="range" id="sFR2" min="-60" max="60" value="0"><span class="val" id="vFR2">0</span></div>
+    <div class="row"><label>Paw</label><input type="range" id="sFR3" min="-30" max="30" value="0"><span class="val" id="vFR3">0</span></div>
+
+    <h4>Back Left Leg</h4>
+    <div class="row"><label>Upper</label><input type="range" id="sBL1" min="-60" max="60" value="0"><span class="val" id="vBL1">0</span></div>
+    <div class="row"><label>Lower</label><input type="range" id="sBL2" min="-60" max="60" value="0"><span class="val" id="vBL2">0</span></div>
+    <div class="row"><label>Paw</label><input type="range" id="sBL3" min="-30" max="30" value="0"><span class="val" id="vBL3">0</span></div>
+
+    <h4>Back Right Leg</h4>
+    <div class="row"><label>Upper</label><input type="range" id="sBR1" min="-60" max="60" value="0"><span class="val" id="vBR1">0</span></div>
+    <div class="row"><label>Lower</label><input type="range" id="sBR2" min="-60" max="60" value="0"><span class="val" id="vBR2">0</span></div>
+    <div class="row"><label>Paw</label><input type="range" id="sBR3" min="-30" max="30" value="0"><span class="val" id="vBR3">0</span></div>
+
+    <p class="note">Click and drag on canvas to rotate. Shift+Click for poke animation.</p>
+  </div>
+
+  <script src="lib/cuon-matrix-cse160.js"></script>
+  <script src="Cube.js"></script>
+  <script src="Cone.js"></script>
+  <script src="asg2.js"></script>
+</body>
+</html>

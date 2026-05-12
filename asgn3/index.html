@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>CSE 160 — Assignment 3: Virtual World</title>
+  <style>
+    body { margin: 0; background: #222; color: #eee; font-family: sans-serif; text-align: center; }
+    canvas { display: block; margin: 20px auto; border: 1px solid #555; background: #000; }
+    #hud { max-width: 800px; margin: 0 auto; text-align: left; padding: 0 20px; }
+    kbd { background: #444; padding: 2px 6px; border-radius: 3px; font-family: monospace; }
+  </style>
+</head>
+<body>
+  <h2>Assignment 3 — Virtual World</h2>
+  <canvas id="webgl" width="800" height="600">Your browser does not support canvas.</canvas>
+  <div id="hud">
+    <p><b>Controls:</b>
+      <kbd>W</kbd>/<kbd>A</kbd>/<kbd>S</kbd>/<kbd>D</kbd> move,
+      <kbd>Q</kbd>/<kbd>E</kbd> turn,
+      mouse drag to look,
+      <kbd>F</kbd> place block,
+      <kbd>G</kbd> remove block.
+    </p>
+    <p id="status"></p>
+  </div>
+
+  <!-- Course libs -->
+  <script src="lib/webgl-utils.js"></script>
+  <script src="lib/webgl-debug.js"></script>
+  <script src="lib/cuon-utils.js"></script>
+  <script src="lib/cuon-matrix-cse160.js"></script>
+
+  <!-- App -->
+  <script src="src/Cube.js"></script>
+  <script src="src/Camera.js"></script>
+  <script src="src/World.js"></script>
+</body>
+</html>

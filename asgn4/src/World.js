@@ -158,8 +158,9 @@ function main() {
 // ================================================================
 
 function _initShaders() {
-  const prog = initShaders(gl, VSHADER_SOURCE, FSHADER_SOURCE);
-  if (!prog) {
+  // cuon-utils initShaders() calls gl.useProgram internally and returns true/false.
+  // The resulting program is stored on gl.program.
+  if (!initShaders(gl, VSHADER_SOURCE, FSHADER_SOURCE)) {
     const vs = gl.createShader(gl.VERTEX_SHADER);
     gl.shaderSource(vs, VSHADER_SOURCE); gl.compileShader(vs);
     if (!gl.getShaderParameter(vs, gl.COMPILE_STATUS))
@@ -171,7 +172,7 @@ function _initShaders() {
     alert('Shader failed — check console (F12)');
     return;
   }
-  gl.useProgram(prog);
+  const prog = gl.program;  // cuon-utils stores the linked program here
   sh.prog = prog;
 
   sh.a_Position    = gl.getAttribLocation(prog, 'a_Position');

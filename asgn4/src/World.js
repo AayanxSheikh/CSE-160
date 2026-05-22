@@ -558,3 +558,5 @@ function _drawTiger() {
     _rc(mt, ...DK);
   }
 }
+
+window.onload = main;

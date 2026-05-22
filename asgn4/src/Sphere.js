@@ -1,6 +1,12 @@
 'use strict';
-// Sphere.js ─ parametric unit sphere, smooth normals (normal = position)
-// Shared static buffers like Cube.
+// Sphere.js - parametric unit sphere, smooth normals (normal = position)
+
+function _mkBufSph(gl, data) {
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, data, gl.STATIC_DRAW);
+  return buf;
+}
 
 class Sphere {
   constructor() {
@@ -50,9 +56,9 @@ class Sphere {
     }
 
     Sphere._vertCount = flatP.length / 3;
-    Sphere._posBuf    = _mkBuf(gl, new Float32Array(flatP));
-    Sphere._normBuf   = _mkBuf(gl, new Float32Array(flatN));
-    Sphere._uvBuf     = _mkBuf(gl, new Float32Array(flatU));
+    Sphere._posBuf    = _mkBufSph(gl, new Float32Array(flatP));
+    Sphere._normBuf   = _mkBufSph(gl, new Float32Array(flatN));
+    Sphere._uvBuf     = _mkBufSph(gl, new Float32Array(flatU));
     Sphere._ready = true;
   }
 }

@@ -1,7 +1,12 @@
 'use strict';
-// OBJLoader.js ─ parses .obj text (supports v, vt, vn, f)
-// Handles face formats: v  v/vt  v//vn  v/vt/vn
-// Fan-triangulates quads and n-gons.
+// OBJLoader.js - parses .obj text (supports v, vt, vn, f)
+
+function _mkBufObj(gl, data) {
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, data, gl.STATIC_DRAW);
+  return buf;
+}
 
 class OBJLoader {
   constructor() {
@@ -54,9 +59,9 @@ class OBJLoader {
     }
 
     this.vertCount = fp.length / 3;
-    this._posBuf   = _mkBuf(gl, new Float32Array(fp));
-    this._normBuf  = _mkBuf(gl, new Float32Array(fn));
-    this._uvBuf    = _mkBuf(gl, new Float32Array(fu));
+    this._posBuf   = _mkBufObj(gl, new Float32Array(fp));
+    this._normBuf  = _mkBufObj(gl, new Float32Array(fn));
+    this._uvBuf    = _mkBufObj(gl, new Float32Array(fu));
   }
 
   // ─── fetch a .obj file from URL, then parse ──────────────────

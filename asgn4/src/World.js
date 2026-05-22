@@ -159,7 +159,18 @@ function main() {
 
 function _initShaders() {
   const prog = initShaders(gl, VSHADER_SOURCE, FSHADER_SOURCE);
-  if (!prog) { console.error('Shader compile/link failed'); return; }
+  if (!prog) {
+    const vs = gl.createShader(gl.VERTEX_SHADER);
+    gl.shaderSource(vs, VSHADER_SOURCE); gl.compileShader(vs);
+    if (!gl.getShaderParameter(vs, gl.COMPILE_STATUS))
+      console.error('VERTEX SHADER:\n', gl.getShaderInfoLog(vs));
+    const fs = gl.createShader(gl.FRAGMENT_SHADER);
+    gl.shaderSource(fs, FSHADER_SOURCE); gl.compileShader(fs);
+    if (!gl.getShaderParameter(fs, gl.COMPILE_STATUS))
+      console.error('FRAGMENT SHADER:\n', gl.getShaderInfoLog(fs));
+    alert('Shader failed — check console (F12)');
+    return;
+  }
   gl.useProgram(prog);
   sh.prog = prog;
 
@@ -559,4 +570,7 @@ function _drawTiger() {
   }
 }
 
+// ================================================================
+//  BOOT  ← this was missing; main() was defined but never called
+// ================================================================
 window.onload = main;
